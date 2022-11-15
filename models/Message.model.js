@@ -1,19 +1,16 @@
 const { Schema, model } = require('mongoose');
 
 const MessageSchema = new Schema({
-    title: {
+    role: {
         type: String,
-        required: true
     },
     message: {
         type: String,
-        required: true
+        // required: true
     },
-    role: {
+    filename: {
         type: String,
-        default: "admin",
-        enum: ["admin", "manager", "worker"]
-    }
+    },
 }, { timestamps: true });
 
 module.exports = model("messages", MessageSchema);

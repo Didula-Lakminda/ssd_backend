@@ -3,7 +3,10 @@ const Message = require('../models/Message.model')
 
 const createMessage = async (req, res) => {
     if (req.body) {
-        const message = new Message(req.body);
+        const message = new Message({
+            role: req.user.role,
+            message: req.body.message,
+        })
         message.save()
             .then(data => {
                 res.status(200).send({ data: data });
@@ -44,5 +47,5 @@ const deleteMessageById = async (req, res) => {
 module.exports = {
     createMessage,
     getAllMessage,
-    deleteMessageById
+    deleteMessageById,
 }
