@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { userAuth, checkRole } = require('../../controllers/Auth.controller');
-const { upload } = require('../../controllers/FileUpload');
-const { createMessage, getAllMessage, deleteMessageById, saveFile } = require('../../controllers/Message.controller');
+const upload = require('../../middlewares/file-upload');
+const { createMessage, getAllMessage, deleteMessageById, saveMessageAndFile } = require('../../controllers/Message.controller');
 
 //editor protected route
 router.get('/admin-protected', userAuth, checkRole(['admin']), async (req, res) => {
@@ -35,7 +35,7 @@ router.delete('/del-messagee/:id', userAuth, checkRole(['manager']), async (req,
 
 // file upload
 router.post('/file-message-upload', userAuth, checkRole(['manager']), upload.single('image'), async (req, res) => {
-    return res.send("File Uploaded");
+    await saveMessageAndFile(req, res);
 });
 
 module.exports = router;

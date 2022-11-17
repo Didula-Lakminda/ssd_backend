@@ -8,7 +8,7 @@ const MessageSchema = new Schema({
         type: String,
         // required: true
     },
-    filename: {
+    file: {
         type: String,
     },
 }, { timestamps: true });

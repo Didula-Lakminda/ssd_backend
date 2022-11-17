@@ -43,9 +43,26 @@ const deleteMessageById = async (req, res) => {
     }
 }
 
+const saveMessageAndFile = async (req, res) => {
+    try {
+        if (req.file) {
+            const message = new Message({
+                role: req.user.role,
+                message: req.body.message,
+                file: req.file.path
+            })
+            await message.save();
+            res.status(200).send({ data: message });
+        }
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+};
+
 
 module.exports = {
     createMessage,
     getAllMessage,
     deleteMessageById,
+    saveMessageAndFile
 }
